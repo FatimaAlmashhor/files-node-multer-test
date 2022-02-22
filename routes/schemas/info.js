@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const infoSchema = new mongoose.Schema({
-    id: mongoose.Types.ObjectId,
     fullname: String,
     email: String,
     image: String,
