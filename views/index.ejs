@@ -62,15 +62,15 @@
                             <form id="stripe-login" method="post" action="/dashboard" enctype='multipart/form-data'>
                                 <div class="field padding-bottom--24">
                                     <label for="fullname">Full Name</label>
-                                    <input type="text" name="fullname">
+                                    <input required type="text" name="fullname">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email">
+                                    <input required type="email" name="email">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="avatar">Upload your Iamge</label>
-                                    <input type="file" name="avatar">
+                                    <input required type="file" name="avatar">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="cv">Upload your CV</label>
@@ -85,7 +85,6 @@
                         </div>
                     </div>
                     <div class="footer-link padding-top--24">
-                        <span>Don't have an account? <a href="">Sign up</a></span>
                         <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
                             <span><a href="#">© Stackfindover</a></span>
                             <span><a href="#">Contact</a></span>

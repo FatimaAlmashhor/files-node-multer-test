@@ -46,10 +46,10 @@ route.get(['/', '/dashboard'], async (req, res) => {
     res.render('index')
 })
 
+route.get('/dashboard', async (req, res) => {
 
-
+})
 route.post('/dashboard', upload, async (req, res, next) => {
-    console.log(req.files, req.body);
     var reqr = req.body;
     const instance = new InfoModal({
         id: mongoose.Types.ObjectId,
@@ -65,6 +65,14 @@ route.post('/dashboard', upload, async (req, res, next) => {
             else
                 console.log(result)
         });
+        console.log(req.files.avatar[0].filename);
+        res.render('show', {
+            info: {
+                fullname: reqr.fullname,
+                email: reqr.email,
+                avatar: req.files.avatar[0].filename
+            }
+        })
         res.end();
         // res.send('Sucess')
         next()
