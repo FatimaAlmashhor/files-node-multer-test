@@ -16,8 +16,10 @@ main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/portfolio',
         {
+            useUnifiedTopology: true,
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            // useCreateIndex: true, //make this true
+            autoIndex: true, //make this also true
         });
 }
 app.listen(process.env.PORT || 5500);

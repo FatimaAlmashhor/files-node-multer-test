@@ -2,8 +2,11 @@ const route = require('express').Router();
 const multer = require('multer')
 const InfoModal = require('./schemas/info');
 const mongoose = require('mongoose');
+const fs = require('fs')
 
-
+const removeFile = async (path) => {
+    await fs.unlinkSync(path)
+}
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log('[filed]', file.fieldname);
@@ -59,23 +62,45 @@ route.post('/dashboard', upload, async (req, res, next) => {
         cv: req.files.cv !== undefined ? req.files.cv[0].filename : null
     });
     try {
+
+        req.files.cv == undefined ? removeFile("./uploads/images/" + req.files.avatar[0].filename) : null
+        req.files.avatar == undefined ? removeFile("./uploads/files/" + req.files.cv[0].filename) : null
+
         await instance.save((error, result) => {
-            if (error)
-                console.log(error.message);
-            else
-                console.log(result)
-        });
-        console.log(req.files.avatar[0].filename);
-        res.render('show', {
-            info: {
-                fullname: reqr.fullname,
-                email: reqr.email,
-                avatar: req.files.avatar[0].filename
+            if (error) {
+                console.log('[error]', error.message);
+                removeFile("./uploads/images/" + req.files.avatar[0].filename)
+                removeFile("./uploads/files/" + req.files.cv[0].filename)
+                res.render('show', {
+                    info: {
+                        message: 'Faild ',
+                        fullname: '',
+                        email: '',
+                        avatar: null
+                    }
+                })
+                res.end();
+                // res.send('Sucess')
+                next()
             }
-        })
-        res.end();
-        // res.send('Sucess')
-        next()
+            else {
+                console.log({ result })
+                res.render('show', {
+                    info: {
+                        message: 'sucessfully ',
+                        fullname: reqr.fullname,
+                        email: reqr.email,
+                        avatar: req.files.avatar[0].filename
+                    }
+                })
+                res.end();
+                // res.send('Sucess')
+                next()
+            }
+
+        });
+
+
     } catch (error) {
         res.status(500).send(error);
     }

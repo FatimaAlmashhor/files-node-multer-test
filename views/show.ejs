@@ -7,8 +7,13 @@
     <title>Document</title>
 </head>
 <body>
+    <div><%= info.message %> </div>
+   <% if ( info.message != 'Faild') { %>
     <div>
-        <img src="/images/<%= info.avatar %>" />
+        <% if (info.avatar != null) { %>
+            <img src=  "/images/<%= info.avatar %>" />
+         
+        <% } %>
     </div>
     <div >
         <h2><%= info.fullname%></h2>
@@ -16,5 +21,7 @@
     <div >
         <h2><%= info.email%></h2>
     </div>
+   <% } %>
 </body>
+    
 </html>
